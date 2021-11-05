@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="NewsModule::top_level" title="NewsModule" module="NewsModule_News" sortOrder="9999" resource="Magento_Backend::content"/>
+		<add id="NewsModule_News::newsmodule_news_test" title="test" module="NewsModule_News" sortOrder="9999" resource="Magento_Backend::content" parent="NewsModule::top_level" action="newsmodule_news/test/index"/>
+	</menu>
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceContainer name="content">
+			<block class="NewsModule\News\Block\Index" name="index" as="index" template="NewsModule_News::index.phtml"/>
+			<block name="index.index" class="NewsModule\News\Block\Index\Index" template="NewsModule_News::index/index.phtml"/>
+		</referenceContainer>
+	</body>
+</page>
