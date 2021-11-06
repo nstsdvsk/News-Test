@@ -38,20 +38,20 @@ class Save extends \Magento\Backend\App\Action
         $data = $this->getRequest()->getPostValue();
         if ($data) {
             $id = $this->getRequest()->getParam('test_id');
-        
+
             $model = $this->_objectManager->create(\NewsModule\News\Model\Test::class)->load($id);
             if (!$model->getId() && $id) {
-                $this->messageManager->addErrorMessage(__('This Test no longer exists.'));
+                $this->messageManager->addErrorMessage(__('This Post no longer exists.'));
                 return $resultRedirect->setPath('*/*/');
             }
-        
+
             $model->setData($data);
-        
+
             try {
                 $model->save();
-                $this->messageManager->addSuccessMessage(__('You saved the Test.'));
+                $this->messageManager->addSuccessMessage(__('You saved the Post.'));
                 $this->dataPersistor->clear('newsmodule_news_test');
-        
+
                 if ($this->getRequest()->getParam('back')) {
                     return $resultRedirect->setPath('*/*/edit', ['test_id' => $model->getId()]);
                 }
@@ -59,9 +59,9 @@ class Save extends \Magento\Backend\App\Action
             } catch (LocalizedException $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
             } catch (\Exception $e) {
-                $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the Test.'));
+                $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the Post.'));
             }
-        
+
             $this->dataPersistor->set('newsmodule_news_test', $data);
             return $resultRedirect->setPath('*/*/edit', ['test_id' => $this->getRequest()->getParam('test_id')]);
         }

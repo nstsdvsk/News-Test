@@ -35,7 +35,7 @@ abstract class Test extends \Magento\Backend\App\Action
     {
         $resultPage->setActiveMenu(self::ADMIN_RESOURCE)
             ->addBreadcrumb(__('NewsModule'), __('NewsModule'))
-            ->addBreadcrumb(__('Test'), __('Test'));
+            ->addBreadcrumb(__('Posts'), __('Posts'));
         return $resultPage;
     }
 }

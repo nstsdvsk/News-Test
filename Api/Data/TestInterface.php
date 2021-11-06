@@ -11,7 +11,8 @@ interface TestInterface
 {
 
     const CONTENT = 'content';
-    const TEST_ID = 'test_id';
+    const name = 'name';
+    const test_id = 'test_id';
 
     /**
      * Get test_id
@@ -38,5 +39,18 @@ interface TestInterface
      * @return \Api\Data\TestInterface
      */
     public function setContent($content);
+
+    /**
+     * Get name
+     * @return string|null
+     */
+    public function getName();
+
+    /**
+     * Set test_id
+     * @param string $name
+     * @return \Api\Data\TestInterface
+     */
+    public function setName($name);
 }
 

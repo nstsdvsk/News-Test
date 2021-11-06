@@ -36,19 +36,19 @@ class Edit extends \NewsModule\News\Controller\Adminhtml\Test
         // 1. Get ID and create model
         $id = $this->getRequest()->getParam('test_id');
         $model = $this->_objectManager->create(\NewsModule\News\Model\Test::class);
-        
+
         // 2. Initial checking
         if ($id) {
             $model->load($id);
             if (!$model->getId()) {
-                $this->messageManager->addErrorMessage(__('This Test no longer exists.'));
+                $this->messageManager->addErrorMessage(__('This Post no longer exists.'));
                 /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
                 $resultRedirect = $this->resultRedirectFactory->create();
                 return $resultRedirect->setPath('*/*/');
             }
         }
         $this->_coreRegistry->register('newsmodule_news_test', $model);
-        
+
         // 3. Build edit form
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
@@ -56,8 +56,8 @@ class Edit extends \NewsModule\News\Controller\Adminhtml\Test
             $id ? __('Edit Test') : __('New Test'),
             $id ? __('Edit Test') : __('New Test')
         );
-        $resultPage->getConfig()->getTitle()->prepend(__('Tests'));
-        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? __('Edit Test %1', $model->getId()) : __('New Test'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Posts'));
+        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? __('Edit Post %1', $model->getId()) : __('New Post'));
         return $resultPage;
     }
 }

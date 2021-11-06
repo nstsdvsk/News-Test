@@ -14,7 +14,7 @@
 			<button name="add">
 				<url path="*/*/new"/>
 				<class>primary</class>
-				<label translate="true">Add new test</label>
+				<label translate="true">Add new post</label>
 			</button>
 		</buttons>
 	</settings>
@@ -79,7 +79,7 @@
 		<column name="content">
 			<settings>
 				<filter>text</filter>
-				<label translate="true">content</label>
+				<label translate="true">Content</label>
 				<editor>
 					<editorType>text</editorType>
 					<validation>
@@ -88,6 +88,13 @@
 				</editor>
 			</settings>
 		</column>
+        <column name="name">
+            <settings>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+                <label translate="true">Name</label>
+            </settings>
+        </column>
 		<actionsColumn name="actions" class="NewsModule\News\Ui\Component\Listing\Column\TestActions">
 			<settings>
 				<indexField>test_id</indexField>

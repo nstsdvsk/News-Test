@@ -28,7 +28,7 @@ class Delete extends \NewsModule\News\Controller\Adminhtml\Test
                 $model->load($id);
                 $model->delete();
                 // display success message
-                $this->messageManager->addSuccessMessage(__('You deleted the Test.'));
+                $this->messageManager->addSuccessMessage(__('You deleted the Post.'));
                 // go to grid
                 return $resultRedirect->setPath('*/*/');
             } catch (\Exception $e) {
@@ -39,7 +39,7 @@ class Delete extends \NewsModule\News\Controller\Adminhtml\Test
             }
         }
         // display error message
-        $this->messageManager->addErrorMessage(__('We can\'t find a Test to delete.'));
+        $this->messageManager->addErrorMessage(__('We can\'t find a Post to delete.'));
         // go to grid
         return $resultRedirect->setPath('*/*/');
     }
