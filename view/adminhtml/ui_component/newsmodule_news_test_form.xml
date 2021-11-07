@@ -66,7 +66,7 @@
 				<label translate="true">Content</label>
 				<dataScope>Content</dataScope>
 				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
 				</validation>
 			</settings>
 		</field>
