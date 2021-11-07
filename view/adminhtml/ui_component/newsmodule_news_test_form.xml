@@ -40,7 +40,7 @@
 		<settings>
 			<label>General</label>
 		</settings>
-        <field name="author" sortOrder="20" formElement="input">
+        <field name="name" sortOrder="10" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">page</item>
@@ -55,7 +55,7 @@
                 <dataScope>name</dataScope>
             </settings>
         </field>
-		<field name="content" formElement="textarea" sortOrder="10">
+		<field name="content" formElement="textarea" sortOrder="20">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
 					<item name="source" xsi:type="string">Post</item>
