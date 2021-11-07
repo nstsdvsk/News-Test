@@ -12,7 +12,8 @@ Instructions
 3. Here you should set a post name and add some content.
 4. Push the "Save post" button.
 5. If you don`t see any error alerts, the post is created.
-6. Done! The given information is saved to database and the post will be showed on the frontend module page.
+6. Run the setup:upgrade command in the command line.
+7. Done! The given information is saved to database and the post will be showed on the frontend module page.
 
 Support
 -------
