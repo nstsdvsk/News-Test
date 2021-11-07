@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../../../web/css/news.css">
 <?php /** @var NewsModule\News\Block\Index\Index $block */ ?>
 <?php $articleCollection = $block->getCollection(); ?>
 <?php if (count($articleCollection)) { ?>
@@ -6,7 +7,7 @@
         <div class="post-container">
             <div class="post-img"></div>
             <div class="post-inner-container">
-                <h3 class="post-name"><a href="#"><?php echo $post->getName(); ?></a></h3>
+                <h2 class="post-name"><a href="#"><?php echo $post->getName(); ?></a></h2>
                 <p class="post-content"><?php echo $post->getContent(); ?></p>
             </div>
         </div>
