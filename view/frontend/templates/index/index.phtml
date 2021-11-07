@@ -1,1 +1,14 @@
-Hello index/index.phtml
+<?php /** @var NewsModule\News\Block\Index\Index $block */ ?>
+<?php $articleCollection = $block->getCollection(); ?>
+<?php if (count($articleCollection)) { ?>
+    <h1><?= $block->escapeHtml(__('Posts')) ?></h1>
+    <?php foreach($block->getCollection() as $post): ?>
+        <div class="post-container">
+            <div class="post-img"></div>
+            <div class="post-inner-container">
+                <h3 class="post-name"><a href="#"><?php echo $post->getName(); ?></a></h3>
+                <p class="post-content"><?php echo $post->getContent(); ?></p>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php } ?>

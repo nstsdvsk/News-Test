@@ -26,7 +26,7 @@ class Test extends \Magento\Framework\Model\AbstractModel implements TestInterfa
      */
     public function getTestId()
     {
-        return $this->_get(self::test_id);
+        return $this->getData('test_id');
     }
 
     /**
@@ -45,7 +45,7 @@ class Test extends \Magento\Framework\Model\AbstractModel implements TestInterfa
      */
     public function getContent()
     {
-        return $this->_get(self::CONTENT);
+        return $this->getData('content');
     }
 
     /**
@@ -64,7 +64,7 @@ class Test extends \Magento\Framework\Model\AbstractModel implements TestInterfa
      */
     public function getName()
     {
-        return $this->_get(self::name);
+        return $this->getData('name');
     }
 
     /**

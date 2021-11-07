@@ -96,20 +96,20 @@ class TestRepository implements TestRepositoryInterface
             $storeId = $this->storeManager->getStore()->getId();
             $test->setStoreId($storeId);
         } */
-        
+
         $testData = $this->extensibleDataObjectConverter->toNestedArray(
             $test,
             [],
             \NewsModule\News\Api\Data\TestInterface::class
         );
-        
+
         $testModel = $this->testFactory->create()->setData($testData);
-        
+
         try {
             $this->resource->save($testModel);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(__(
-                'Could not save the test: %1',
+                'Could not save the post: %1',
                 $exception->getMessage()
             ));
         }
@@ -124,7 +124,7 @@ class TestRepository implements TestRepositoryInterface
         $test = $this->testFactory->create();
         $this->resource->load($test, $testId);
         if (!$test->getId()) {
-            throw new NoSuchEntityException(__('test with id "%1" does not exist.', $testId));
+            throw new NoSuchEntityException(__('post with id "%1" does not exist.', $testId));
         }
         return $test;
     }
@@ -136,22 +136,22 @@ class TestRepository implements TestRepositoryInterface
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
         $collection = $this->testCollectionFactory->create();
-        
+
         $this->extensionAttributesJoinProcessor->process(
             $collection,
             \NewsModule\News\Api\Data\TestInterface::class
         );
-        
+
         $this->collectionProcessor->process($criteria, $collection);
-        
+
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
-        
+
         $items = [];
         foreach ($collection as $model) {
             $items[] = $model;
         }
-        
+
         $searchResults->setItems($items);
         $searchResults->setTotalCount($collection->getSize());
         return $searchResults;
@@ -169,7 +169,7 @@ class TestRepository implements TestRepositoryInterface
             $this->resource->delete($testModel);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(__(
-                'Could not delete the test: %1',
+                'Could not delete the post: %1',
                 $exception->getMessage()
             ));
         }
