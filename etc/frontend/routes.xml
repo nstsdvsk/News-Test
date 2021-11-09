@@ -4,5 +4,8 @@
 		<route id="news" frontName="news">
 			<module name="NewsModule_News"/>
 		</route>
+        <route id="post" frontName="news_post">
+            <module name="NewsModule_News"/>
+        </route>
 	</router>
 </config>
