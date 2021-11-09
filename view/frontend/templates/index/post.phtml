@@ -1,1 +1,15 @@
-<h2>Hello</h2>
+<?php /** @var NewsModule\News\Block\Index\Index $block */ ?>
+<?php $articleCollection = $block->getCollection(); ?>
+<?php if (count($articleCollection)) { ?>
+    <?php $postId = (int)explode("=", $_SERVER['QUERY_STRING'])[1];?>
+    <?php foreach($block->getCollection() as $post): ?>
+        <?php if($post->getTestId()==$postId): break; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+        <h2><?php echo $post->getName(); ?></h2>
+        <div class="post-container">
+            <div class="post-img"></div>
+            <p class="post-content"><?php echo $post->getContent(); ?></p>
+        </div>
+<?php } ?>
+

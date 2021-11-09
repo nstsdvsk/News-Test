@@ -6,7 +6,11 @@
         <div class="post-container">
             <div class="post-img"></div>
             <div class="post-inner-container">
-                <h2 class="post-name"><a href="#"><?php echo $post->getName(); ?></a></h2>
+                <h2 class="post-name">
+                        <a href="news_post?postId=<?php echo $post->getTestId(); ?>">
+                            <?php echo $post->getName(); ?>
+                        </a>
+                </h2>
                 <p class="post-content"><?php echo $post->getContent(); ?></p>
             </div>
         </div>
