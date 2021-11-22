@@ -10,7 +10,8 @@ use Psr\Log\LoggerInterface;
 use Magento\Framework\Filesystem;
 use Magento\Framework\Exception\LocalizedException;
 
-class ImageUploader {
+class ImageUploader
+{
 
     /**
      * @var Database
@@ -64,14 +65,14 @@ class ImageUploader {
      * @throws \Magento\Framework\Exception\FileSystemException
      */
     public function __construct(
-        Database $coreFileStorageDatabase,
-        Filesystem $filesystem,
-        UploaderFactory $uploaderFactory,
+        Database              $coreFileStorageDatabase,
+        Filesystem            $filesystem,
+        UploaderFactory       $uploaderFactory,
         StoreManagerInterface $storeManager,
-        LoggerInterface $logger,
-        $baseTmpPath = 'news/tmp/images',
-        $basePath = 'news/images',
-        $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png']
+        LoggerInterface       $logger,
+                              $baseTmpPath = 'news/tmp/images',
+                              $basePath = 'news/images',
+                              $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png']
     )
     {
         $this->coreFileStorageDatabase = $coreFileStorageDatabase;
@@ -88,7 +89,7 @@ class ImageUploader {
      * @param $baseTmpPath
      * @return void
      */
-    public function setBaseTmpPath ($baseTmpPath)
+    public function setBaseTmpPath($baseTmpPath)
     {
         $this->baseTmpPath = $baseTmpPath;
     }
@@ -97,7 +98,7 @@ class ImageUploader {
      * @param $basePath
      * @return void
      */
-    public function setBasePath ($basePath)
+    public function setBasePath($basePath)
     {
         $this->basePath = $basePath;
     }
@@ -106,7 +107,7 @@ class ImageUploader {
      * @param $allowedExtensions
      * @return void
      */
-    public function setAllowedExtensions ($allowedExtensions)
+    public function setAllowedExtensions($allowedExtensions)
     {
         $this->allowedExtensions = $allowedExtensions;
     }
@@ -114,7 +115,7 @@ class ImageUploader {
     /**
      * @return string
      */
-    public function getBaseTmpPath ()
+    public function getBaseTmpPath()
     {
         return $this->baseTmpPath;
     }
@@ -122,7 +123,7 @@ class ImageUploader {
     /**
      * @return string
      */
-    public function getBasePath ()
+    public function getBasePath()
     {
         return $this->basePath;
     }
@@ -130,7 +131,7 @@ class ImageUploader {
     /**
      * @return string|array
      */
-    public function getAllowedExtensions ()
+    public function getAllowedExtensions()
     {
         return $this->allowedExtensions;
     }
@@ -140,7 +141,7 @@ class ImageUploader {
      * @param $imageName
      * @return string
      */
-    public function getFilePath ($path, $imageName)
+    public function getFilePath($path, $imageName)
     {
         return rtrim($path, '/') . '/' . ltrim($imageName, '/');
     }
@@ -150,7 +151,8 @@ class ImageUploader {
      * @return mixed
      * @throws LocalizedException
      */
-    public function moveFileFromTmp ($imageName) {
+    public function moveFileFromTmp($imageName)
+    {
         $baseTmpPath = $this->getBaseTmpPath();
         $basePath = $this->getBasePath();
 
@@ -173,7 +175,7 @@ class ImageUploader {
      * @throws LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function saveFileToTmpDir ($fileId)
+    public function saveFileToTmpDir($fileId)
     {
         $baseTmpPath = $this->getBaseTmpPath();
 
@@ -191,14 +193,13 @@ class ImageUploader {
 
         $result['tmp_name'] = str_replace('\\', '/', $result['tmp_name']);
         $result['url'] = $this->storeManager
-            ->getStore()
-            ->getBaseUrl(
-                \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
-            ) . $this->getFilePath($baseTmpPath, $result['file']);
+                ->getStore()
+                ->getBaseUrl(
+                    \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
+                ) . $this->getFilePath($baseTmpPath, $result['file']);
         $result['name'] = $result['file'];
 
-        if(isset($result['file']))
-        {
+        if (isset($result['file'])) {
             try {
                 $relativePath = rtrim($baseTmpPath, '/') . '/' . ltrim($result['file'], '/');
                 $this->coreFileStorageDatabase->saveFile($relativePath);

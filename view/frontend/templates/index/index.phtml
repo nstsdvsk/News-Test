@@ -4,7 +4,7 @@
     <h1><?= $block->escapeHtml(__('Posts')) ?></h1>
     <?php foreach($block->getCollection() as $post): ?>
         <div class="post-container">
-            <div class="post-img"></div>
+            <div class="post-img"><img src="<?= $post->getData('image') ?>" alt="image"></div>
             <div class="post-inner-container">
                 <h2 class="post-name">
                         <a href="news_post?postId=<?php echo $post->getTestId(); ?>">

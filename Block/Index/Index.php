@@ -33,6 +33,16 @@ class Index extends \Magento\Framework\View\Element\Template
         parent::__construct($context, $data);
     }
 
+    /**
+     * @return \Magento\Framework\DataObject|null
+     */
+    public function getPost()
+    {
+        /** @var Collection $viewCollection */
+        $viewCollection = $this->_viewCollectionFactory ->create();
+        $id = $this->getRequest()->getParam('postId');
+        return $viewCollection->getItemById($id);
+    }
 
     /**
      * @return Post[]

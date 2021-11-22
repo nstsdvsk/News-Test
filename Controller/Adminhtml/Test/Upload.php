@@ -3,7 +3,6 @@
 namespace NewsModule\News\Controller\Adminhtml\Test;
 
 use Magento\Backend\App\Action\Context;
-use Magento\Framework\App\ResponseInterface;
 use Magento\Backend\App\Action;
 use Magento\Framework\Controller\ResultFactory;
 use NewsModule\News\Model\Test\ImageUploader;
@@ -32,7 +31,8 @@ class Upload extends Action
     {
         $imageId = $this->_request->getParam('param_name', 'image');
         try {
-            $result = $this->imageUploader->saveFileTiTpmDir($imageId);
+            $result = $this->imageUploader->saveFileToTmpDir($imageId);
+//            $result = $this->imageUploader->saveFileTiTpmDir($imageId);
 
             $result['cookie'] = [
                 'name' => $this->_getSession()->getName(),

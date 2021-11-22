@@ -37,6 +37,7 @@ class Save extends \Magento\Backend\App\Action
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
         if ($data) {
+            $data['image'] = $data['image'][0]['url'];
             $id = $this->getRequest()->getParam('test_id');
 
             $model = $this->_objectManager->create(\NewsModule\News\Model\Test::class)->load($id);

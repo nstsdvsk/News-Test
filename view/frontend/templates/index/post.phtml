@@ -1,14 +1,9 @@
 <?php /** @var NewsModule\News\Block\Index\Index $block */ ?>
-<?php $articleCollection = $block->getCollection(); ?>
-<?php if (count($articleCollection)) { ?>
-    <?php $postId = (int)explode("=", $_SERVER['QUERY_STRING'])[1];?>
-    <?php foreach($block->getCollection() as $post): ?>
-        <?php if($post->getTestId()==$postId): break; ?>
-        <?php endif; ?>
-    <?php endforeach; ?>
+<?php $post = $block->getPost(); ?>
+<?php if ($post) { ?>
         <h2><?php echo $post->getName(); ?></h2>
         <div class="post-container">
-            <div class="post-img"></div>
+            <div class="post-img"><img src="<?= $post->getData('image') ?>" alt="image"></div>
             <p class="post-content"><?php echo $post->getContent(); ?></p>
         </div>
 <?php } ?>
