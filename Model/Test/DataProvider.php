@@ -8,6 +8,9 @@ declare(strict_types=1);
 namespace NewsModule\News\Model\Test;
 
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Magento\Framework\App\ObjectManager;
+use Magento\Framework\Filesystem;
+use NewsModule\News\Model\Test\FileInfo;
 use NewsModule\News\Model\ResourceModel\Test\CollectionFactory;
 
 class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
@@ -18,6 +21,11 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
     protected $dataPersistor;
 
     protected $loadedData;
+
+    /**
+     * @var Filesystem
+     */
+    private $fileInfo;
 
     /**
      * Constructor
@@ -56,6 +64,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         }
         $items = $this->collection->getItems();
         foreach ($items as $model) {
+            $model = $this->convertValues($model);
             $this->loadedData[$model->getId()] = $model->getData();
         }
         $data = $this->dataPersistor->get('newsmodule_news_test');
@@ -68,6 +77,39 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         }
 
         return $this->loadedData;
+    }
+
+    /**
+     * @param \NewsModule\News\Model\Test $model
+     * @return \NewsModule\News\Model\Test $model
+     */
+    private function convertValues($model)
+    {
+        $fileName = $model->getImage();
+        $image = [];
+        if ($this->getFileInfo()->isExist($fileName)) {
+            $stat = $this->getFileInfo()->getStat($fileName);
+            $mime = $this->getFileInfo()->getMimeType($fileName);
+            $image[0]['name'] = $fileName;
+            $image[0]['url'] = $model->getImageUrl();
+            $image[0]['size'] = isset($stat) ? $stat['size'] : 0;
+            $image[0]['type'] = $mime;
+        }
+        $model->setImage($image);
+
+        return $model;
+    }
+
+    /**
+     * @return FileInfo
+     * @deprecated 101.1.0
+     */
+    private function getFileInfo()
+    {
+        if ($this->fileInfo === null) {
+            $this->fileInfo = ObjectManager::getInstance()->get(FileInfo::class);
+        }
+        return $this->fileInfo;
     }
 }
 
