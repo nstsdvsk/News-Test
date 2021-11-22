@@ -41,11 +41,6 @@ class ImageUploader
     /**
      * @var string
      */
-    protected $baseTmpPath;
-
-    /**
-     * @var string
-     */
     protected $basePath;
 
     /**
@@ -59,7 +54,6 @@ class ImageUploader
      * @param UploaderFactory $uploaderFactory
      * @param StoreManagerInterface $storeManager
      * @param LoggerInterface $logger
-     * @param string $baseTmpPath
      * @param string $basePath
      * @param string[] $allowedExtensions
      * @throws \Magento\Framework\Exception\FileSystemException
@@ -70,7 +64,6 @@ class ImageUploader
         UploaderFactory       $uploaderFactory,
         StoreManagerInterface $storeManager,
         LoggerInterface       $logger,
-                              $baseTmpPath = 'news/tmp/images',
                               $basePath = 'news/images',
                               $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png']
     )
@@ -80,18 +73,8 @@ class ImageUploader
         $this->uploaderFactory = $uploaderFactory;
         $this->storeManager = $storeManager;
         $this->logger = $logger;
-        $this->baseTmpPath = $baseTmpPath;
         $this->basePath = $basePath;
         $this->allowedExtensions = $allowedExtensions;
-    }
-
-    /**
-     * @param $baseTmpPath
-     * @return void
-     */
-    public function setBaseTmpPath($baseTmpPath)
-    {
-        $this->baseTmpPath = $baseTmpPath;
     }
 
     /**
@@ -110,14 +93,6 @@ class ImageUploader
     public function setAllowedExtensions($allowedExtensions)
     {
         $this->allowedExtensions = $allowedExtensions;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBaseTmpPath()
-    {
-        return $this->baseTmpPath;
     }
 
     /**
@@ -147,44 +122,21 @@ class ImageUploader
     }
 
     /**
-     * @param $imageName
-     * @return mixed
-     * @throws LocalizedException
-     */
-    public function moveFileFromTmp($imageName)
-    {
-        $baseTmpPath = $this->getBaseTmpPath();
-        $basePath = $this->getBasePath();
-
-        $baseImagePath = $this->getFilePath($basePath, $imageName);
-        $baseTmpImagePath = $this->getFilePath($baseTmpPath, $imageName);
-
-        try {
-            $this->coreFileStorageDatabase->copyFile($baseTmpImagePath, $baseImagePath);
-            $this->mediaDirectory->renameFile($baseTmpImagePath, $baseImagePath);
-        } catch (\Exception $e) {
-            throw new LocalizedException(__('Something went wrong with file(s).'));
-        }
-
-        return $imageName;
-    }
-
-    /**
      * @param $fileId
      * @return string|array
      * @throws LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function saveFileToTmpDir($fileId)
+    public function saveFileToDir($fileId)
     {
-        $baseTmpPath = $this->getBaseTmpPath();
+        $baseTmpPath = $this->getBasePath();
 
         /** @var \Magento\MediaStorage\Model\File\Uploader $uploader */
         $uploader = $this->uploaderFactory->create(['fileId' => $fileId]);
         $uploader->setAllowedExtensions($this->getAllowedExtensions());
         $uploader->setAllowRenameFiles(true);
 
-        $result = $uploader->save($this->mediaDirectory->getAbsolutePath($baseTmpPath));
+        $result = $uploader->save($this->mediaDirectory->getAbsolutePath($this->getBasePath()));
         unset($result['path']);
 
         if (!$result) {
@@ -196,12 +148,12 @@ class ImageUploader
                 ->getStore()
                 ->getBaseUrl(
                     \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
-                ) . $this->getFilePath($baseTmpPath, $result['file']);
+                ) . $this->getFilePath($this->getBasePath(), $result['file']);
         $result['name'] = $result['file'];
 
         if (isset($result['file'])) {
             try {
-                $relativePath = rtrim($baseTmpPath, '/') . '/' . ltrim($result['file'], '/');
+                $relativePath = rtrim($this->getBasePath(), '/') . '/' . ltrim($result['file'], '/');
                 $this->coreFileStorageDatabase->saveFile($relativePath);
             } catch (\Exception $e) {
                 $this->logger->critical($e);

@@ -31,7 +31,7 @@ class Upload extends Action
     {
         $imageId = $this->_request->getParam('param_name', 'image');
         try {
-            $result = $this->imageUploader->saveFileToTmpDir($imageId);
+            $result = $this->imageUploader->saveFileToDir($imageId);
 //            $result = $this->imageUploader->saveFileTiTpmDir($imageId);
 
             $result['cookie'] = [
