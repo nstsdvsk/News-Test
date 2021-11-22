@@ -59,14 +59,14 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
             $this->loadedData[$model->getId()] = $model->getData();
         }
         $data = $this->dataPersistor->get('newsmodule_news_test');
-        
+
         if (!empty($data)) {
             $model = $this->collection->getNewEmptyItem();
             $model->setData($data);
             $this->loadedData[$model->getId()] = $model->getData();
             $this->dataPersistor->clear('newsmodule_news_test');
         }
-        
+
         return $this->loadedData;
     }
 }
