@@ -1,7 +1,7 @@
 <?php /** @var NewsModule\News\Block\Index\Index $block */ ?>
 <?php $post = $block->getPost(); ?>
 <?php if ($post) { ?>
-        <h2><?php echo $post->getName(); ?></h2>
+        <h1><?php echo $post->getName(); ?></h1>
         <div class="post-container">
             <div class="post-img"><img src="<?= $post->getData('image') ?>" alt="image"></div>
             <p class="post-content"><?php echo $post->getContent(); ?></p>
