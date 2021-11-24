@@ -9,7 +9,7 @@ Instructions
 -------------------------
 1. Visit Magento Admin page, go to News Module->Posts.
 2. Push the "Add new post" button.
-3. Here you should set a post name and add some content.
+3. Here you should set a post name, add some content and download an image.
 4. Push the "Save post" button.
 5. If you don`t see any error alerts, the post is created.
 6. Run the setup:upgrade command in the command line.
