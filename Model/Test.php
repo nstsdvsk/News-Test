@@ -8,6 +8,9 @@ declare(strict_types=1);
 namespace NewsModule\News\Model;
 
 use NewsModule\News\Api\Data\TestInterface;
+use NewsModule\News\Model\Test\FileInfo;
+use Magento\Framework\App\ObjectManager;
+use Magento\Store\Model\StoreManagerInterface;
 
 class Test extends \Magento\Framework\Model\AbstractModel implements TestInterface
 {
@@ -59,7 +62,6 @@ class Test extends \Magento\Framework\Model\AbstractModel implements TestInterfa
     }
 
     /**
-     * Get name
      * @return string|null
      */
     public function getName()
@@ -68,13 +70,49 @@ class Test extends \Magento\Framework\Model\AbstractModel implements TestInterfa
     }
 
     /**
-     * Set name
      * @param string $testId
      * @return \NewsModule\News\Api\Data\TestInterface
      */
     public function setName($name)
     {
         return $this->setData(self::name, $name);
+    }
+
+    /**
+     * @param string $imageName
+     * @return bool|string
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function getImageUrl($imageName = null)
+    {
+        $url = '';
+        $image = $imageName;
+        if (!$image) {
+            $image = $this->getData('image');
+        }
+        if ($image) {
+            if (is_string($image)) {
+                $url = $this->_getStoreManager()->getStore()->getBaseUrl(
+                        \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
+                    ).FileInfo::ENTITY_MEDIA_PATH .'/'. $image;
+            } else {
+                throw new \Magento\Framework\Exception\LocalizedException(
+                    __('Something went wrong while getting the image url.')
+                );
+            }
+        }
+        return $url;
+    }
+
+    /**
+     * @return StoreManagerInterface
+     */
+    private function _getStoreManager()
+    {
+        if ($this->_storeManager === null) {
+            $this->_storeManager = ObjectManager::getInstance()->get(StoreManagerInterface::class);
+        }
+        return $this->_storeManager;
     }
 }
 
